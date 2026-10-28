@@ -63,7 +63,14 @@ class View:
         pulsante_conferma_responsabile = ft.Button("Conferma", on_click=self.controller.conferma_responsabile)
 
         # Altri Pulsanti da implementare (es. "Mostra" e "Cerca")
-        # TODO
+        #qua bisogna sapere cosa cercare
+        self.input_tipo_strumento = ft.TextField(label="Tipo Strumento (es. Chitarra)", width= 250)
+
+        self._btn_mostra = ft.Button("Mostra", on_click=self.controller.handle_mostra)
+        #questo crea un pulsante che visualizza l'intero elenco del tipo di strumenti
+        self._btn_cerca = ft.Button("Cerca", on_click=self.controller.handle_cerca)
+        #questo crea un pulsante che cerca quel tipo di strumento
+
 
         # --- LAYOUT ---
         self.page.add(
@@ -82,10 +89,25 @@ class View:
             ft.Divider(),
 
             # Sezione 3
-            # TODO
+            #blocco che raggruppa la casella di testo per il tipo e i pulsanti creati prima di cerca e mostra
+            #questo crea un'intestazione testuale chiara per dividere visivamente la pagina e far capire all'utente a cosa serve quella sezione
+            ft.Row(controls=[ft.Text("Strumenti", size=16, weight=ft.FontWeight.BOLD), self._btn_mostra],
+                   alignment=ft.MainAxisAlignment.START),
+
+            ft.Divider(),
+            # disegna una linea di separazione per staccare questa parte dai risultati sottostanti
+
 
             # Sezione 4
-            # TODO
+            # inserisco ListView che farà da contenitore per i risultati ottenuti dal database
+            ft.Text("Cerca Strumenti per tipo", size=16, weight=ft.FontWeight.BOLD),
+            # sistema tutto dentro una riga allineata al centro in modo ordinato
+            ft.Row(controls=[self.input_tipo_strumento, self._btn_cerca], alignment=ft.MainAxisAlignment.START),
+            # start = sx
+
+
+            self.lista_strumenti
+            #permesso a flet per stampare a schermo l'elenco degli strumenti ogni volta che il controller esegue una ricerca o preme "mostra"
         )
 
     def cambia_tema(self, e):
